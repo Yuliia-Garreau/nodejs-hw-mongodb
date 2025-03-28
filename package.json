@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/**/*.js",
     "start": "node src/index",
-    "dev": "nodemon src/index"
+    "dev": "nodemon src/index",
+    "check": "node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "express": "^4.21.2",
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.0",
-    "pino": "^9.6.0"
+    "pino": "^9.6.0",
+    "pino-http": "^10.4.0"
   }
 }
