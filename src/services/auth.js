@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
 import { SessionsCollection } from '../db/Models/session.js';
+import { log } from 'console';
 
 export const registerUser = async (payload) => {
   const user = await UsersCollection.findOne({ email: payload.email });
@@ -53,6 +54,7 @@ const createSession = async () => {
   };
 };
 export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
+  console.log('sessId', sessionId, 'refr', refreshToken);
   const session = await SessionsCollection.findOne({
     _id: sessionId,
     refreshToken,
@@ -65,7 +67,7 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   if (isSessionTokenExpired) {
     throw createHttpError(401, 'Session token expired');
   }
-  const newSession = createSession();
+  const newSession = await createSession();
 
   await SessionsCollection.deleteOne({ _id: sessionId, refreshToken });
   return await SessionsCollection.create({
