@@ -3,6 +3,7 @@ import { SORT_ORDER } from '../constants/index.js';
 import { ContactsCollection } from '../db/Models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 export const getContacts = async ({
+  userId,
   page,
   perPage,
   sortBy = '_id',
@@ -12,7 +13,11 @@ export const getContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = ContactsCollection.find();
+  const contactsQuery = ContactsCollection.find({ userId });
+
+  if (filter.userId) {
+    contactsQuery.where('userId').equals(filter.userId);
+  }
 
   if (filter.type) {
     contactsQuery.where('contactType').equals(filter.type);
@@ -51,26 +56,33 @@ export const getContacts = async ({
   };
 };
 
-export const getContactById = (contactId) =>
-  ContactsCollection.findOne({ _id: contactId });
+export const getContactById = (contactId, userId) =>
+  ContactsCollection.findOne({ _id: contactId, userId });
 
 // export const createContact = async (payload) => {
 //   const contact = await ContactsCollection.create(payload);
 //   return contact;
 // };
-export const createContact = (payload) => ContactsCollection.create(payload);
+export const createContact = (payload, userId) => {
+  const contact = ContactsCollection.create({ ...payload, userId });
+  return contact;
+};
 
-export const updateContact = async (contactId, payload) => {
+export const updateContact = async (contactId, userId, payload) => {
   const updatedContact = await ContactsCollection.findOneAndUpdate(
-    { _id: contactId },
+    { _id: contactId, userId },
     { $set: payload },
+    { new: true, runValidators: true },
   );
 
   return updatedContact;
 };
 
-export const deleteContact = async (contactId) => {
-  const contact = await ContactsCollection.findOneAndDelete({ _id: contactId });
+export const deleteContact = async (contactId, userId) => {
+  const contact = await ContactsCollection.findOneAndDelete({
+    _id: contactId,
+    userId,
+  });
 
   return contact;
 };

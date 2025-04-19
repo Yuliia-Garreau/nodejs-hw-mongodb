@@ -22,10 +22,12 @@ export const loginUserController = async (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
   });
-  res.status(200).json({
+  res.json({
     status: 200,
     message: 'Successfully logged in a user!',
-    data: { accessToken: session.accessToken },
+    data: {
+      accessToken: session.accessToken,
+    },
   });
 };
 export const logoutUserController = async (req, res) => {
@@ -55,7 +57,7 @@ export const refreshUserSessionController = async (req, res) => {
   });
   setupSession(res, session);
 
-  res.status(200).json({
+  res.json({
     status: 200,
     message: 'Successfully refreshed a  session!',
     data: { accessToken: session.accessToken },
