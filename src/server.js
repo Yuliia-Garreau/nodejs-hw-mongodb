@@ -7,6 +7,7 @@ import { logger } from './middlewares/logger.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/index.js';
 // import { ContactsCollection } from './db/Models/contact.js';
 // import dotenv from 'dotenv';
 // dotenv.config();
@@ -25,6 +26,8 @@ export const setupServer = () => {
   app.use(notFoundHandler);
 
   app.use(errorHandler);
+
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   const port = Number(getEnvVar('PORT', 3000));
   app.listen(port, () => {
