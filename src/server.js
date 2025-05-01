@@ -8,6 +8,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
 import { UPLOAD_DIR } from './constants/index.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 // import { ContactsCollection } from './db/Models/contact.js';
 // import dotenv from 'dotenv';
 // dotenv.config();
@@ -22,6 +23,7 @@ export const setupServer = () => {
   // app.use('/contacts', contactsRouter);
   // app.use('/contacts', router);
   app.use(router);
+  app.use('/api-docs', swaggerDocs());
 
   app.use(notFoundHandler);
 
