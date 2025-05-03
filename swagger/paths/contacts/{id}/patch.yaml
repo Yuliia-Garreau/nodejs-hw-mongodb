@@ -15,16 +15,30 @@ parameters:
 requestBody:
   required: true
   content:
-    application/json:
+    multipart/formdata:
       schema:
         type: object
         properties:
           name:
             type: string
             example: 'John Doe'
-          phone:
+          phoneNumber:
             type: string
             example: '+1234567890'
+          email:
+            type: string
+            example: 'asdfg@gmail.com'
+          isFavourite:
+            type: boolean
+            example: true
+          contactType:
+            type: string
+            example: 'family'
+          userId:
+            type: string
+            example: '65ca67e7ae7f10c88b598384'
+          photo:
+            type: string
 responses:
   '200':
     description: 'Successfully updated the contact'

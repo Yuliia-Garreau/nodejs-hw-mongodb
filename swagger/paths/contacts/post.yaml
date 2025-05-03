@@ -14,13 +14,13 @@ requestBody:
           - name
           - phoneNumber
           - email
-          - isFavourite
+          # - isFavourite
           - contactType
         properties:
           name:
             description: "Contact's name"
             type: string
-            example: 'Nastja Doe'
+            example: 'John Doe'
           phoneNumber:
             description: "Contact's phone Number"
             type: string
@@ -28,7 +28,7 @@ requestBody:
           email:
             description: "Contact's email"
             type: string
-            example: 'nastja@gmail.com'
+            example: 'asdfg@gmail.com'
           isFavourite:
             description: 'Is it favorite contact?'
             type: boolean
