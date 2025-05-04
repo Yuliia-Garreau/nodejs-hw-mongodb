@@ -197,14 +197,13 @@
                   "name",
                   "phoneNumber",
                   "email",
-                  "isFavourite",
                   "contactType"
                 ],
                 "properties": {
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
-                    "example": "Nastja Doe"
+                    "example": "John Doe"
                   },
                   "phoneNumber": {
                     "description": "Contact's phone Number",
@@ -214,7 +213,7 @@
                   "email": {
                     "description": "Contact's email",
                     "type": "string",
-                    "example": "nastja@gmail.com"
+                    "example": "asdfg@gmail.com"
                   },
                   "isFavourite": {
                     "description": "Is it favorite contact?",
@@ -359,29 +358,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successfully deleted contact",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully deleted contact with id 65ca67e7ae7f10c88b598384!"
-                    }
-                  }
-                }
-              }
-            }
+          "204": {
+            "description": "Successfully deleted contact"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -417,7 +395,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/formdata": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -425,9 +403,28 @@
                     "type": "string",
                     "example": "John Doe"
                   },
-                  "phone": {
+                  "phoneNumber": {
                     "type": "string",
                     "example": "+1234567890"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "asdfg@gmail.com"
+                  },
+                  "isFavourite": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "contactType": {
+                    "type": "string",
+                    "example": "family"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "example": "65ca67e7ae7f10c88b598384"
+                  },
+                  "photo": {
+                    "type": "string"
                   }
                 }
               }
